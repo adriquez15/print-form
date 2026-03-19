@@ -18,18 +18,19 @@
     PRINT FORM
   </button>
 
- <script>
+<script>
 function printPDF() {
-  const win = window.open('https://www.spencerhouse.ca/_files/ugd/583605_cfdcc5c295a1499c88cb304b39e0769a.pdf');
+  const link = 'https://www.spencerhouse.ca/_files/ugd/583605_cfdcc5c295a1499c88cb304b39e0769a.pdf';
 
-  let attempts = 0;
-  const interval = setInterval(() => {
-    try {
-      win.print();
-      attempts++;
-      if (attempts > 5) clearInterval(interval);
-    } catch (e) {}
-  }, 500);
+  const iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  iframe.src = link;
+
+  document.body.appendChild(iframe);
+
+  iframe.onload = function() {
+    iframe.contentWindow.print();
+  };
 }
 </script>
 
